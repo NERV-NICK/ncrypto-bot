@@ -16,7 +16,7 @@ router = Router()
 
 @router.message(CommandStart())
 async def start_cmd(message: Message) -> None:
-    user_id = message.from_user.id
+    user_id = int(message.from_user.id)
     name = message.from_user.first_name
     username = message.from_user.username
     user = await rq.get_user_by_tg_id(user_id)
@@ -51,7 +51,7 @@ async def start_cmd(message: Message) -> None:
     else:
         start_command = message.text
         referrer_id = start_command[7:]
-        
+
         if user.referrer == 0:
             await rq.set_user(user_id, name, username, referrer_id)
             await rq.update_user_score(user_id, user.score + 5000)
@@ -69,6 +69,7 @@ async def start_cmd(message: Message) -> None:
                 pass
         else:
             await message.answer("Вы уже являетесь рефералом другого пользователя и не можете получить награду повторно.")
+            
     await message.answer_sticker('CAACAgIAAxkBAAEMuE1mzezgwwZj8_RbzXAkhhAMBntz_QACKwwAAiIwWEvIROJY0qdhFDUE')
     await message.answer("*Начни майнить $NCOIN прямо сейчас!*", parse_mode="Markdown", reply_markup=kb.game)
 
