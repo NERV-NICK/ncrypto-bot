@@ -23,7 +23,7 @@ async def start_cmd(message: Message) -> None:
 
     if not user:
         start_command = message.text
-        referrer_id = start_command[7:]
+        referrer_id = int(start_command[7:])
 
         if referrer_id.isdigit() and int(referrer_id) != user_id:
             referrer_id = int(referrer_id)
@@ -69,10 +69,9 @@ async def start_cmd(message: Message) -> None:
                 pass
         else:
             await message.answer("Вы уже являетесь рефералом другого пользователя и не можете получить награду повторно.")
-            
+
     await message.answer_sticker('CAACAgIAAxkBAAEMuE1mzezgwwZj8_RbzXAkhhAMBntz_QACKwwAAiIwWEvIROJY0qdhFDUE')
     await message.answer("*Начни майнить $NCOIN прямо сейчас!*", parse_mode="Markdown", reply_markup=kb.game)
-
 
 
 @router.message(Command("admin"))
