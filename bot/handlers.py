@@ -50,7 +50,7 @@ async def start_cmd(message: Message) -> None:
             await rq.set_user(user_id, name, username, 0)
     else:
         start_command = message.text
-        referrer_id = start_command[7:]
+        referrer_id = int(start_command[7:])
 
         if user.referrer == 0:
             await rq.set_user(user_id, name, username, referrer_id)
