@@ -20,15 +20,18 @@ async def start_cmd(message: Message) -> None:
     name = message.from_user.first_name
     username = message.from_user.username
     user = await rq.get_user_by_tg_id(user_id)
+
     if not user:
         start_command = message.text
         referrer_id = start_command[7:]
+
         if referrer_id.isdigit() and int(referrer_id) != user_id:
             referrer_id = int(referrer_id)
             await rq.set_user(user_id, name, username, referrer_id)
             await rq.add_referral(referrer_id, user_id)
             user = await rq.get_user_by_tg_id(user_id)
-            if user.referrer == 0:  # Проверка, что у пользователя нет реферера
+
+            if user.referrer == 0:
                 await rq.update_user_score(user_id, user.score + 5000)
                 referrer = await rq.get_user_by_tg_id(referrer_id)
                 await rq.update_user_score(referrer_id, referrer.score + 10000)
@@ -46,11 +49,13 @@ async def start_cmd(message: Message) -> None:
             await message.answer("Нельзя быть другом самому себе!" if str(referrer_id) == str(user_id) else "Неверный реферальный ID!")
             await rq.set_user(user_id, name, username, 0)
     else:
-        if user.referrer == 0:  # Если пользователь является рефералом с id 0
-            await rq.update_user_referrer(user_id, referrer_id)
+        if user.referrer == 0:
+            await rq.set_user(user_id, name, username, referrer_id)
             await rq.update_user_score(user_id, user.score + 5000)
+
             referrer = await rq.get_user_by_tg_id(referrer_id)
             await rq.update_user_score(referrer_id, referrer.score + 10000)
+
             try:
                 await message.bot.send_message(referrer_id, "*Похоже у вас новый друг!*", parse_mode="Markdown")
                 await message.answer(
@@ -61,7 +66,6 @@ async def start_cmd(message: Message) -> None:
                 pass
         else:
             await message.answer("Вы уже являетесь рефералом другого пользователя и не можете получить награду повторно.")
-
     await message.answer_sticker('CAACAgIAAxkBAAEMuE1mzezgwwZj8_RbzXAkhhAMBntz_QACKwwAAiIwWEvIROJY0qdhFDUE')
     await message.answer("*Начни майнить $NCOIN прямо сейчас!*", parse_mode="Markdown", reply_markup=kb.game)
 
