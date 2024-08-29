@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Loading</title>
+		<link rel="stylesheet" type="text/css" href="./static/loading.css" />
+		<script src="https://telegram.org/js/telegram-web-app.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	</head>
+	<body>
+		<div class="loading-content">
+			<h1 class="loading-title"><span>N</span>-Crypto</h1>
+			<div class="loading"></div>
+		</div>
+		<script src="./static/js/app.js"></script>
+		<script>
+			;(async function () {
+				await fetchData('reg', {
+					id: tg.initDataUnsafe.user.id,
+				})
+
+				setTimeout(function () {
+					window.location.href = '/home'
+				}, 3000)
+			})()
+		</script>
+	</body>
+</html>

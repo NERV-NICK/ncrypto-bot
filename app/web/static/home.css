@@ -1,0 +1,133 @@
+@font-face {
+	font-family: 'Monocraft';
+	src: url('Monocraft.ttf') format('truetype');
+}
+
+* {
+	font-family: 'Monocraft', sans-serif;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+body {
+	animation: 2s ease-out 0s 1 fadeIn;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	background-image: repeating-linear-gradient(
+		20deg,
+		#000000,
+		#000000 20px,
+		#101010 20px,
+		#101010 40px
+	);
+}
+
+.home-tap {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 0;
+}
+
+.home-title {
+	font-size: 40px;
+	margin: 10px;
+	background: linear-gradient(45deg, silver, white, silver);
+	background-clip: text;
+	color: transparent;
+	border-bottom: 5px solid transparent;
+	border-image: linear-gradient(45deg, #005f2f, #6ade98, #005f2f);
+	border-image-slice: 1;
+	object-fit: contain;
+}
+
+.home-title span {
+	background: linear-gradient(45deg, #005f2f, #6ade98, #005f2f);
+	background-clip: text;
+	color: transparent;
+}
+
+.home-stats {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	z-index: 1;
+}
+
+.home-score {
+	font-size: 7vh;
+	margin: 0;
+	margin-top: 20px;
+	background: linear-gradient(45deg, silver, white, silver);
+	background-clip: text;
+	color: transparent;
+	border-bottom: 5px solid transparent;
+}
+
+.ncoin {
+	width: 300px;
+	height: 300px;
+}
+
+.tap {
+	font-family: 'Monocraft', sans-serif;
+	font-weight: bolder;
+	position: absolute;
+	font-size: 24px;
+	animation: float 1s linear;
+	color: white;
+	cursor: pointer;
+	user-select: none;
+	pointer-events: none;
+}
+
+@keyframes float {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-300px);
+	}
+}
+
+.home-nav {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+	position: absolute;
+	bottom: 10px;
+}
+
+.home-nav button {
+	background: linear-gradient(45deg, #005f2f, #6ade98, #005f2f);
+	border: none;
+	border-radius: 25px;
+	font-size: 3vw;
+	font-weight: bolder;
+	padding: 1vh;
+	width: 18vw;
+	height: 18vw;
+	text-align: center;
+}
+
+.home-nav a {
+	text-decoration: none;
+	background-color: white;
+	background-clip: text;
+	color: transparent;
+	display: inline-block;
+	width: 100%;
+}

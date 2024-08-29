@@ -1,0 +1,119 @@
+@font-face {
+	font-family: 'Monocraft';
+	src: url('Monocraft.ttf') format('truetype');
+}
+
+* {
+	font-family: 'Monocraft', sans-serif;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+body {
+	animation: 2s ease-out 0s 1 fadeIn;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	background-image: repeating-linear-gradient(
+		20deg,
+		#000000,
+		#000000 20px,
+		#101010 20px,
+		#101010 40px
+	);
+}
+
+.lb-header {
+	position: fixed;
+	margin: 0;
+	width: 100%;
+	background: #000000;
+	z-index: 1000;
+}
+
+.lb-title {
+	font-size: 40px;
+	margin: 10px;
+	background: linear-gradient(45deg, silver, white, silver);
+	background-clip: text;
+	color: transparent;
+	border-bottom: 5px solid transparent;
+	border-image: linear-gradient(45deg, #005f2f, #6ade98, #005f2f);
+	border-image-slice: 1;
+	object-fit: contain;
+}
+
+.lb-title span {
+	background: linear-gradient(45deg, #005f2f, #6ade98, #005f2f);
+	background-clip: text;
+	color: transparent;
+}
+
+.lb {
+	margin: 10px;
+}
+
+.back-button {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	color: white;
+	background: linear-gradient(45deg, #005f2f, #6ade98, #005f2f);
+	border: none;
+	border-radius: 25px;
+	font-size: 3vw;
+	font-weight: bolder;
+	padding: 1vh;
+	width: 18vw;
+	height: 18vw;
+	text-align: center;
+}
+
+.lb-card {
+	background: rgba(106, 222, 152, 0.5);
+	border-radius: 25px;
+	color: white;
+	padding: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin: 10px;
+}
+
+.lb-leaderboard {
+	display: flex;
+	flex-direction: column;
+	margin-top: 140px;
+	padding: 10px;
+	height: calc(100vh - 70px);
+	overflow-y: auto;
+}
+
+.container {
+	margin: 15px;
+}
+
+.container input {
+	color: rgba(255, 255, 255, 0.7);
+	background: rgba(106, 222, 152, 0.5);
+	border: none;
+	border-radius: 25px;
+	padding: 10px;
+	font-size: 3vw;
+}
+
+.container button {
+	background: rgba(106, 222, 152, 0.5);
+	border: none;
+	border-radius: 25px;
+	color: white;
+	padding: 10px;
+	font-size: 3vw;
+}
