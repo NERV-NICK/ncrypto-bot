@@ -24,16 +24,17 @@ async def start_cmd(message: Message) -> None:
     if not user:
         start_command = message.text
         referrer_id = start_command[7:]
-        if str(referrer_id) != "":
-            if str(referrer_id) != str(user_id):
-                await rq.set_user(user_id, name, username, referrer_id)
-                await rq.add_referral(referrer_id, user_id)
+        if referrer_id.isdigit() and int(referrer_id) != user_id:
+            referrer_id = int(referrer_id)
+            await rq.set_user(user_id, name, username, referrer_id)
+            await rq.add_referral(referrer_id, user_id)
 
-                user = await rq.get_user_by_tg_id(user_id)
-                await rq.update_user_score(user_id, user.score+5000)
+            user = await rq.get_user_by_tg_id(user_id)
+            if user.referrer == 0:
+                await rq.update_user_score(user_id, user.score + 5000)
 
                 referrer = await rq.get_user_by_tg_id(referrer_id)
-                await rq.update_user_score(referrer_id, referrer.score+10000)
+                await rq.update_user_score(referrer_id, referrer.score + 10000)
 
                 try:
                     await message.bot.send_message(referrer_id, "*Похоже у вас новый друг!*", parse_mode="Markdown")
@@ -44,8 +45,9 @@ async def start_cmd(message: Message) -> None:
                 except:
                     pass
             else:
-                await message.answer("Нельзя быть другом самому себе!")
+                await message.answer("Вы уже являетесь рефералом другого пользователя и не можете получить награду повторно.")
         else:
+            await message.answer("Нельзя быть другом самому себе!" if str(referrer_id) == str(user_id) else "Неверный реферальный ID!")
             await rq.set_user(user_id, name, username, 0)
 
     await message.answer_sticker('CAACAgIAAxkBAAEMuE1mzezgwwZj8_RbzXAkhhAMBntz_QACKwwAAiIwWEvIROJY0qdhFDUE')
