@@ -25,8 +25,8 @@ async def start_cmd(message: Message) -> None:
         start_command = message.text
         referrer_id = start_command[7:]
 
-        if referrer_id.isdigit() and referrer_id != str(user_id):
-            if user.referrer == 0:
+        if str(referrer_id) != "":
+            if str(referrer_id) != str(user_id):
                 referrer_id = int(referrer_id)
 
                 await rq.set_user(user_id, name, username, referrer_id)
@@ -47,7 +47,7 @@ async def start_cmd(message: Message) -> None:
                 except:
                     pass
             else:
-                await message.answer("*Вы уже являетесь рефералом другого пользователя и не можете получить награду повторно!*", parse_mode="Markdown")
+                pass
         else:
             await rq.set_user(user_id, name, username, 0)
 
