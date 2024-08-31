@@ -27,15 +27,17 @@ async def loading_page(request: Request) -> None:
 @app.get("/home", response_class=HTMLResponse)
 async def home_page(request: Request) -> None:
     user_id = request.session.get("user_id")
-    user = await rq.get_user_by_tg_id(user_id)
+    try:
+        user = await rq.get_user_by_tg_id(user_id)
 
-    return templates.TemplateResponse("home.html", {"request": request, "score": user.score})
+        return templates.TemplateResponse("home.html", {"request": request, "score": user.score})
+    except: 
+        return "<h1>Пожалуйста, запустите в боте: @ncrypto_tap_bot</h1>"
 
 
 @app.get("/leaderboard", response_class=HTMLResponse)
 async def leaderboard_page(request: Request) -> None:
     users_list = await rq.get_top_100_users()
-    print(users_list)
 
     return templates.TemplateResponse("leaderboard.html", {"request": request, "users": users_list})
 
@@ -59,14 +61,13 @@ async def friends_page(request: Request):
     for ref_id in user.referrals:
         if ref_id is not None:
             referral = await rq.get_user_by_tg_id(ref_id)
-            referrals.append(str(referral.name))
+            referrals.append([referral.name, referral.score])
 
     return templates.TemplateResponse("friends.html", {"request": request, "referrals": referrals, "user_id": user.tg_id if user else None})
 
 
 @app.post("/reg")
 async def id(request: Request, data: dict) -> None:
-    print(data)
     request.session["user_id"] = data["id"]
 
 
