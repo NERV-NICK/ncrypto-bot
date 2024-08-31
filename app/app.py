@@ -56,12 +56,16 @@ async def tasks_page(request: Request):
 async def friends_page(request: Request):
     user_id = request.session.get("user_id")
     user = await rq.get_user_by_tg_id(user_id)
+    print(user_id)
+    print(user)
 
     referrals = []
     for ref_id in user.referrals:
         if ref_id is not None:
             referral = await rq.get_user_by_tg_id(ref_id)
             referrals.append([referral.name, referral.score])
+
+    print(referrals)
 
     return templates.TemplateResponse("friends.html", {"request": request, "referrals": referrals, "user_id": user.tg_id if user else None})
 
