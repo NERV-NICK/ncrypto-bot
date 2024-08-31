@@ -49,7 +49,6 @@ async def start_cmd(message: Message) -> None:
             else:
                 await message.answer("*Вы уже являетесь рефералом другого пользователя и не можете получить награду повторно!*", parse_mode="Markdown")
         else:
-            await message.answer("Нельзя быть другом самому себе!" if referrer_id == user_id else "Неверный реферальный ID!")
             await rq.set_user(user_id, name, username, 0)
 
     await message.answer_sticker('CAACAgIAAxkBAAEMuE1mzezgwwZj8_RbzXAkhhAMBntz_QACKwwAAiIwWEvIROJY0qdhFDUE')
