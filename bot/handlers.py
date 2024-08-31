@@ -30,7 +30,7 @@ async def start_cmd(message: Message) -> None:
                 referrer_id = int(referrer_id)
 
                 await rq.set_user(user_id, name, username, referrer_id)
-                await rq.add_referral(referrer_id, user_id)
+                print(await rq.add_referral(referrer_id, user_id))
                 user = await rq.get_user_by_tg_id(user_id)
 
                 await rq.update_user_score(user_id, user.score + 5000)
