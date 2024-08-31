@@ -23,10 +23,12 @@ async def start_cmd(message: Message) -> None:
 
     if not user:
         start_command = message.text
-        referrer_id = int(start_command[7:])
+        referrer_id = start_command[7:]
 
-        if referrer_id.isdigit() and referrer_id != user_id:
+        if referrer_id.isdigit() and referrer_id != str(user_id):
             if user.referrer == 0:
+                referrer_id = int(referrer_id)
+
                 await rq.set_user(user_id, name, username, referrer_id)
                 await rq.add_referral(referrer_id, user_id)
                 user = await rq.get_user_by_tg_id(user_id)
