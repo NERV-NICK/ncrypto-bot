@@ -58,6 +58,7 @@ async def friends_page(request: Request):
     user = await rq.get_user_by_tg_id(user_id)
     print(user_id)
     print(user)
+    print(user.referrals)
 
     referrals = []
     for ref_id in user.referrals:
